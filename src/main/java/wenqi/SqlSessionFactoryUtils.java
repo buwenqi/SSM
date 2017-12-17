@@ -36,4 +36,10 @@ public class SqlSessionFactoryUtils {
             getSqlSessionFactory();
         return sqlSessionFactory.openSession();
     }
+
+    public static SqlSession openSqlSessionAutocommit(){
+        if(sqlSessionFactory==null)
+            getSqlSessionFactory();
+        return sqlSessionFactory.openSession(true);
+    }
 }
