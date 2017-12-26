@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="multiAssociation.pojo.EmployeeTaskMapper">
+    <resultMap id="empTaskResultMap" type="multiAssociation.pojo.EmployeeTask">
+        <id column="id" property="id"></id>
+        <result column="emp_id" property="empId"/>
+        <result column="task_name" property="taskName"/>
+        <association column="task_id" property="task" select="multiAssociation.pojo.TaskMapper.getTaskById"/>
+        <!-- select语句对应的是对应mapper xml中方法的id-->
+    </resultMap>
+
+
+    <insert id="insertEmployeeTask" parameterType="multiAssociation.pojo.EmployeeTask" useGeneratedKeys="true" keyProperty="id">
+        insert into t_employee_task(emp_id,task_id,task_name,note) values(#{empId},#{task.id},#{taskName},#{note})
+    </insert>
+
+    <select id="getEmployeeTaskByEmpId" parameterType="long" resultMap="empTaskResultMap">
+        select * from t_employee_task where emp_id=#{empId}
+    </select>
+</mapper>

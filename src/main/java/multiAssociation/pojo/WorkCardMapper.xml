@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="multiAssociation.pojo.WorkCardMapper">
+    <resultMap id="workCardResultMap" type="multiAssociation.pojo.WorkCard">
+        <id column="id" property="id"/>
+        <result column="real_name" property="realName"/>
+        <result column="emp_id" property="empId"/>
+        <result column="POSITION" property="position"/>
+        <!--只需要写不一样的，其他的都自动映射-->
+    </resultMap>
+    <insert id="insertWorkCard" parameterType="multiAssociation.pojo.WorkCard" useGeneratedKeys="true" keyProperty="id">
+        insert into t_work_card(emp_id,real_name,department,mobile,POSITION,note)
+        values(#{empId},#{realName},#{department},#{mobile},#{position},#{note})
+    </insert>
+    <select id="getWorkCardByEmpId" parameterType="long" resultMap="workCardResultMap">
+        select * from t_work_card where emp_id=#{empId}
+    </select>
+</mapper>

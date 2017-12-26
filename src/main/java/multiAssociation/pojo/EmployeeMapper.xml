@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="multiAssociation.pojo.EmployeeMapper">
+    <resultMap id="employeeResultMap" type="multiAssociation.pojo.Employee">
+        <id column="id" property="id"></id>
+        <result column="real_name" property="realName"></result>
+        <result column="sex" property="sex" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <result column="POSITION" property="position"/>
+
+        <association property="workCard" column="id" select="multiAssociation.pojo.WorkCardMapper.getWorkCardByEmpId"/>
+
+        <collection property="employeeTaskList" column="id" select="multiAssociation.pojo.EmployeeTaskMapper.getEmployeeTaskByEmpId"/>
+        <discriminator javaType="long" column="sex">
+            <!--最后返回的resultMap会取代原来的resultMap,所以后面的的resultMap要extends-->
+            <case value="0" resultMap="femaleEmployeeResultMap"></case>
+            <case value="1" resultMap="maleEmployeeFormResultMap"/>
+        </discriminator>
+    </resultMap>
+
+    <resultMap id="femaleEmployeeResultMap" type="multiAssociation.pojo.FemaleEmployee" extends="employeeResultMap">
+        <association property="femaleHealthForm" column="id" select="multiAssociation.pojo.FemaleHealthFormMapper.getFemaleHealthFormWithEmpId"/>
+    </resultMap>
+
+    <resultMap id="maleEmployeeFormResultMap" type="multiAssociation.pojo.MaleEmployee" extends="employeeResultMap">
+        <association property="maleHealthForm" column="id" select="multiAssociation.pojo.MaleHealthFormMapper.getMaleHealthFormWithEmpId"/>
+    </resultMap>
+    <select id="getEmployeeById" parameterType="long" resultMap="employeeResultMap">
+        select * from t_employee where id=#{id}
+    </select>
+</mapper>

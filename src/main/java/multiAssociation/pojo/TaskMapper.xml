@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="multiAssociation.pojo.TaskMapper">
+    <select id="getTaskById" parameterType="long" resultType="multiAssociation.pojo.Task">
+        select * from t_task where id=#{id}
+    </select>
+    <insert id="insertTask" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="multiAssociation.pojo.Task">
+        insert into t_task(title,context,note) values(#{title},#{context},#{note})
+    </insert>
+</mapper>

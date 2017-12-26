@@ -6,6 +6,7 @@
       <typeAlias alias="role" type="wenqi.Role"/>
   </typeAliases>
   <typeHandlers>
+    <!--显示使用TypeHandler可以不用配置这里-->
     <!--使用注解可以免除JavaType和jdbcType的配置-->
     <!--<typeHandler javaType="[Ljava.lang.String" jdbcType="varchar" handler="TypeHandler.StringArrayTypeHandler"/>-->
     <typeHandler handler="TypeHandler.StringArrayTypeHandler"/>
@@ -26,5 +27,12 @@
   <mappers>
     <mapper resource="wenqi/RoleMapper.xml"/>
     <mapper resource="TypeHandler/StudentMapper.xml"/>
+
+    <mapper resource="multiAssociation/pojo/TaskMapper.xml"/>
+    <mapper resource="multiAssociation/pojo/WorkCardMapper.xml"/>
+    <mapper resource="multiAssociation/pojo/EmployeeTaskMapper.xml"/>
+    <mapper resource="multiAssociation/pojo/MaleHealthFormMapper.xml"/>
+    <mapper resource="multiAssociation/pojo/FemaleHealthFormMapper.xml"/>
+    <mapper resource="multiAssociation/pojo/EmployeeMapper.xml"/>
   </mappers>
 </configuration>
