@@ -3,6 +3,7 @@ package TypeHandler;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.type.EnumOrdinalTypeHandler;
 import org.apache.ibatis.type.EnumTypeHandler;
+import org.apache.ibatis.type.StringTypeHandler;
 import org.apache.log4j.Logger;
 import wenqi.SqlSessionFactoryUtils;
 
